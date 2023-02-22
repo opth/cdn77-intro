@@ -1,0 +1,19 @@
+---
+- hosts: all
+  tasks:
+    - name: Update packages
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present
+      notify: Restart Nginx
+- handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+

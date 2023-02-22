@@ -1,0 +1,6 @@
+[docker_debian_web]
+172.18.0.2
+
+[docker_debian_web:vars]
+ansible_user=root
+ansible_password=ansroot
