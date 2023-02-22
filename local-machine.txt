@@ -1,0 +1,24 @@
+Příprava Ansible na localu:
+- adduser --home /home/ans --shell /bin/bash ans
+- passwd ans
+- ssh-keygen -t ed25519
+- ssh-add ~/.ssh/id_ed25519
+# Kontrola 
+- ssh-add -l
+# Jelikoz puzivam Archlinux, tak pacman
+- sudo pacman -S ansible
+- mkdir ~/ansible 
+- ansible-config init --disabled > ~/ansible/ansible.cfg
+
+Instalace dockeru a compose
+- sudo pacman -S docker docker-compose
+# a nasledne spusteni
+- sudo systemctl start docker.service
+# zmena pristupu na docker socket
+- sudo chmod 666 /var/run/docker.sock
+# test beziciho dockeru
+- docker info
+
+Build vlastní image z Debianu:
+- docker build -t mydebian-ssh .
+

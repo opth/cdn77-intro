@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  web:
+    image: mydebian-ssh
+    env_file: .docker.env
+    ports:
+      - 22
+      - 80
+      - 443
+  monitoring:
+    image: mydebian-ssh
+    env_file: .docker.env
+    ports:
+      - 22
+      - 80
+      - 443
