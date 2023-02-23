@@ -1,0 +1,35 @@
+---
+- hosts: monitoring
+  # roles:
+  # - cloudalchemy.prometheus
+  # vars:
+  #   prometheus_targets:
+  #     node:
+  #     - targets:
+  #       - localhost:9100
+  #       - demo.cloudalchemy.org:9100
+  #       labels:
+  #         env: demosite
+  
+  tasks:
+    - name: Ping
+      ansible.builtin.ping:
+
+    - name: Update and install prometheus
+      apt:
+        name: prometheus
+        state: latest
+        update_cache: yes
+
+    - name: prometheus configuration file
+      template:
+        src: "{{ playbook_dir }}/monitoring/prometheus.yml"
+        dest: "/etc/prometheus/prometheus.yml"
+        # mode: 0755
+        owner: prometheus
+        group: prometheus
+
+    - name: Start prometheus
+      service:
+        name: prometheus
+        state: started

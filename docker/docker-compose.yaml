@@ -15,3 +15,9 @@ services:
       - 22
       - 80
       - 443
+      - 9090
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.10.0
+    ports:
+      - 9113
+    command: "-nginx.scrape-uri=http://172.19.0.2:8080/stub_status"
