@@ -1,11 +1,11 @@
 [web]
-172.19.0.2
+172.77.0.2
 
 [web:vars]
 ansible_user=root
 
 [monitoring]
-172.19.0.3
+172.77.0.3
 
 [monitoring:vars]
 ansible_user=root

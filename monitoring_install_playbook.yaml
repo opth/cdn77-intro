@@ -1,27 +1,16 @@
 ---
 - hosts: monitoring
-  # roles:
-  # - cloudalchemy.prometheus
-  # vars:
-  #   prometheus_targets:
-  #     node:
-  #     - targets:
-  #       - localhost:9100
-  #       - demo.cloudalchemy.org:9100
-  #       labels:
-  #         env: demosite
-  
-  tasks:
-    - name: Ping
-      ansible.builtin.ping:
-
+  pre_tasks:
     - name: Update and install prometheus
       apt:
         name: prometheus
         state: latest
         update_cache: yes
 
-    - name: prometheus configuration file
+    - name: Install and start node exporter
+      script: "{{ playbook_dir }}/monitoring/node_exporter.sh"
+
+    - name: Copy prometheus configuration file
       template:
         src: "{{ playbook_dir }}/monitoring/prometheus.yml"
         dest: "/etc/prometheus/prometheus.yml"
@@ -33,3 +22,37 @@
       service:
         name: prometheus
         state: started
+
+    # - name: 
+    #   file:
+    #     path: "/etc/grafana/provisioning/dashboards/dashboards.yml"
+    #     state: absent
+
+  roles:
+    - ansible-grafana-install
+    - role: ansible-grafana-config
+      vars:
+        grafana_security:
+          admin_user: admin
+          admin_password: admin
+    
+  tasks:
+    - name: Create Grafana dashboard proviver
+      copy:
+        src: "{{ playbook_dir }}/monitoring/dashboards.yml"
+        dest: "/etc/grafana/provisioning/dashboards/dashboards.yml"
+        
+    - name: Create Grafana dashboards dir
+      file:
+        path: /var/lib/grafana/dashboards
+        state: directory
+
+    - name: Copy dashboard config for grafana
+      copy:
+        src: "{{ playbook_dir }}/monitoring/grafana_dashboard.json"
+        dest: "/var/lib/grafana/dashboards/grafana_dashboard.json"
+
+    - name: Restart Grafana
+      service:
+        name: grafana-server
+        state: restarted

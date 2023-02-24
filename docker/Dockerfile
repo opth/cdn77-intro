@@ -4,10 +4,10 @@ RUN apt update && apt install -y tzdata; \
     apt clean;
 
 RUN mkdir /var/run/sshd; \
-    apt install -y openssh-server python3; \
-    sed -i 's/^#\(PermitRootLogin\) .*/\1 yes/' /etc/ssh/sshd_config; \
-    sed -i 's/^\(UsePAM yes\)/# \1/' /etc/ssh/sshd_config; \
+    apt install -y openssh-server python3 wget vim; \
     apt clean;
+
+RUN echo "    UsePAM yes" >> /etc/ssh/ssh_config;
 
 RUN { \
     echo '#!/bin/bash -eu'; \
