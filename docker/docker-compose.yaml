@@ -37,7 +37,6 @@ services:
     networks:
       backend_net:
         ipv4_address: 172.77.0.3
-
   nginx-exporter:
     depends_on:
       - web
@@ -45,7 +44,29 @@ services:
     image: nginx/nginx-prometheus-exporter:0.10.0
     ports:
       - 9113
-    command: "-nginx.scrape-uri=http://172.77.0.2:8080/stub_status"
+    # Retries na 9999 je tempfix aby neexitnnul container nez se nastavi nginx
+    command: "-nginx.scrape-uri=http://172.77.0.2:8080/stub_status -nginx.retries 9999"
     networks:
       backend_net:
         ipv4_address: 172.77.0.4
+  etcd-00:
+    image: mydebian-ssh
+    ports:
+      - 2379
+    networks:
+      backend_net:
+        ipv4_address: 172.77.0.10
+  etcd-01:
+    image: mydebian-ssh
+    ports:
+      - 2379
+    networks:
+      backend_net:
+        ipv4_address: 172.77.0.11
+  etcd-02:
+    image: mydebian-ssh
+    ports:
+      - 2379
+    networks:
+      backend_net:
+        ipv4_address: 172.77.0.12

@@ -1,11 +1,8 @@
 [web]
 172.77.0.2
 
-[web:vars]
-ansible_user=root
-
 [monitoring]
 172.77.0.3
 
-[monitoring:vars]
-ansible_user=root
+[etcd_cluster]
+172.77.0.1[0:2]

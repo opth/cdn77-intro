@@ -1,0 +1,24 @@
+---
+- hosts: etcd_cluster
+  tasks:
+    - name: Update and install etcd
+      apt:
+        name: etcd
+        state: present
+        update_cache: yes
+
+    - name: Ensure conf dir exists
+      file:
+        path: "/etc/etcd"
+        state: directory
+
+    - name: Copy etcd config
+      copy:
+        src: "{{ playbook_dir }}/etcd/etcd.conf.infra{{ ansible_host[-1:] }}.yml"
+        dest: "/etc/etcd/etcd.conf.yml"
+
+    - name: Start etcd service
+      service:
+        name: etcd
+        state: restarted
+        args: " --config_file /etc/etcd/etcd.conf.yml"
