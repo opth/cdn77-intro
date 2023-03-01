@@ -7,8 +7,8 @@
         state: latest
         update_cache: yes
 
-    - name: Install and start node exporter
-      script: "{{ playbook_dir }}/monitoring/node_exporter.sh"
+    # - name: Install and start node exporter
+    #   script: "{{ playbook_dir }}/monitoring/node_exporter.sh"
 
     - name: Copy prometheus configuration file
       template:
@@ -47,12 +47,24 @@
         path: /var/lib/grafana/dashboards
         state: directory
 
-    - name: Copy dashboard config for grafana
+    - name: Copy dashboard config for nginx
       copy:
-        src: "{{ playbook_dir }}/monitoring/grafana_dashboard.json"
-        dest: "/var/lib/grafana/dashboards/grafana_dashboard.json"
+        src: "{{ playbook_dir }}/monitoring/nginx_dashboard.json"
+        dest: "/var/lib/grafana/dashboards/nginx_dashboard.json"
+
+    - name: Copy dashboard config for etcd
+      copy:
+        src: "{{ playbook_dir }}/monitoring/etcd_dashboard.json"
+        dest: "/var/lib/grafana/dashboards/etcd_dashboard.json"
 
     - name: Restart Grafana
       service:
         name: grafana-server
         state: restarted
+      ignore_errors: true
+
+    - name: Start node_exporter
+      service:
+        name: prometheus-node-exporter
+        state: started
+      ignore_errors: true

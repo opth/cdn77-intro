@@ -83,3 +83,4 @@
   service:
     name: grafana-server
     state: started
+  ignore_errors: true
