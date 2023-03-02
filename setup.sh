@@ -1,6 +1,9 @@
 #!/bin/bash -eu
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+NC='\033[0m' # No Color
 
-ips=(
+IPS=(
 	"172.77.0.2"	# web
 	"172.77.0.3"	# monitoring
 	"172.77.0.10"	# etcd00
@@ -8,28 +11,31 @@ ips=(
 	"172.77.0.12"	# etcd02
 )
 
-known_hosts_path="$HOME/.ssh/known_hosts"
+KNOWN_HOSTS="$HOME/.ssh/known_hosts"
 
 exit_msg() {
 	echo "$1"
 	exit $2
 }
 
-if [ ! -w "$known_hosts_path" ]
+if [ ! -w "$KNOWN_HOSTS" ]
 then
-	exit_msg "$known_hosts_path does not exist or is unwritable." 1
+	exit_msg "$KNOWN_HOSTS does not exist or is unwritable." 1
 fi
 
-for host in "${ips[@]}"
+for host in "${IPS[@]}"
 do
-	if ping -c 1 $host &>/dev/null
+	if ! ping -c 1 -W 0.5 $host 1>/dev/null
 	then
-		echo "$host is unreachable."
-		break
+		echo -e "${RED}X: $host is unreachable.${NC}" 1>&2
+		echo
+		continue
 	fi
 
 	sed -i '/${host}/d' ~/.ssh/known_hosts
 
-	echo "==== Importing ssh pubkey fingerpring for $host ===="
-	ssh-keyscan $host >> "$known_hosts_path"
+	ssh-keyscan $host 2>/dev/null >> "$KNOWN_HOSTS"
+
+	echo -e "${GREEN}✓ Imported $host${NC}"
+	echo
 done
