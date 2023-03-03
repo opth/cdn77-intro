@@ -15,6 +15,7 @@ services:
       - 22
       - 80
       - 443
+      - 8080
     networks:
       backend_net:
         ipv4_address: 172.77.0.2

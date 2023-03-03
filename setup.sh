@@ -14,28 +14,80 @@ IPS=(
 KNOWN_HOSTS="$HOME/.ssh/known_hosts"
 
 exit_msg() {
-	echo "$1"
+	echo -e "${RED}====== ERROR ======"
+	echo -e "$1"
+	echo -e "===================${NC}"
 	exit $2
 }
 
-if [ ! -w "$KNOWN_HOSTS" ]
-then
-	exit_msg "$KNOWN_HOSTS does not exist or is unwritable." 1
-fi
-
-for host in "${IPS[@]}"
-do
-	if ! ping -c 1 -W 0.5 $host 1>/dev/null
+check_projet_dir() {
+	if [[ ! "$PWD" =~ "cdn77-intro" ]]
 	then
-		echo -e "${RED}X: $host is unreachable.${NC}" 1>&2
-		echo
-		continue
+		exit_msg "Current directory is not projet root: 'cd77-intro'." 1
+	fi
+}
+
+register_known_hosts() {
+	check_projet_dir
+	echo "========== Importing ssh pubkey fingerprints =========="
+	if [ ! -w "$KNOWN_HOSTS" ]
+	then
+		exit_msg "$KNOWN_HOSTS does not exist or is unwritable." 1
 	fi
 
-	sed -i '/${host}/d' ~/.ssh/known_hosts
+	for host in "${IPS[@]}"
+	do
+		if ! ping -c 1 -W 0.5 $host 1>/dev/null
+		then
+			echo -e "${RED}X: $host is unreachable.${NC}" 1>&2
+			echo
+			continue
+		fi
 
-	ssh-keyscan $host 2>/dev/null >> "$KNOWN_HOSTS"
+		sed -i '/${host}/d' ~/.ssh/known_hosts
 
-	echo -e "${GREEN}✓ Imported $host${NC}"
-	echo
-done
+		ssh-keyscan $host 2>/dev/null >> "$KNOWN_HOSTS"
+
+		echo -e "${GREEN}✓ Imported $host${NC}"
+		echo
+	done
+
+}
+
+build_docker_image() {
+	if [[ ! -f /var/run/docker.pid ]]
+	then
+		exit_msg "Docker is not running." 1
+	fi
+
+ 	check_projet_dir
+
+	echo "========== Building docker image =========="
+	docker image rm -f mydebian-ssh:latest 2>/dev/null
+
+	docker build -t mydebian-ssh ./docker
+
+	echo "========== Preparing docker containers =========="
+	cd ./docker
+	docker-compose up -d
+	cd ..
+}
+
+check_ansible_ping() {
+	check_projet_dir
+	( ansible all -i inventory -m ping ) || exit_msg "Could not reach all containers from ansible." 1
+}
+
+success_msg() {
+	echo -e "${GREEN}\n\n✓ Successfully preared all containers for you."
+	echo -e "Now you can execute ansible playbooks${NC}"
+	echo -e "For example: ansible-playbook -i inventory web_install_playbook.yaml"
+}
+
+build_docker_image
+
+register_known_hosts
+
+check_ansible_ping
+
+success_msg
