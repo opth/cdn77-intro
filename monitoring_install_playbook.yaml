@@ -7,9 +7,6 @@
         state: latest
         update_cache: yes
 
-    # - name: Install and start node exporter
-    #   script: "{{ playbook_dir }}/monitoring/node_exporter.sh"
-
     - name: Copy prometheus configuration file
       template:
         src: "{{ playbook_dir }}/monitoring/prometheus.yml"
@@ -68,3 +65,22 @@
         name: prometheus-node-exporter
         state: started
       ignore_errors: true
+
+    - name: Copy KOPR to container
+      synchronize:
+        src: "{{ playbook_dir }}/kopr"
+        dest: "/etc/service"
+
+    - name: Install KOPR requirements
+      command: "pip3 install paramiko ping3 requests"
+
+    - name: Check perm on service directory
+      file:
+        path: "/etc/service/kopr"
+        state: directory
+        mode: 1755
+    
+    - name: Change service runfile permissions
+      file:
+        path: "/etc/service/kopr/run"
+        mode: 755

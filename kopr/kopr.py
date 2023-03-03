@@ -2,35 +2,24 @@
 from targets import MonitoringTarget, NginxTarget, LoadTarget
 from logger import Logger
 import asyncio
+from concurrent.futures import ProcessPoolExecutor
 
 tasks = set()
 
 logger = Logger("test.log")
-hosts = ["1.1.1.1", "10.0.0.1", "172.77.0.2", "172.77.0.3"]
-        
-lt = LoadTarget(hosts[2], logger)
 
-for host in hosts:
-    x = MonitoringTarget(host, logger)
-    tasks.add(
-        asyncio.create_task(
-            x.ping()
-        )
-    )
+nginx = NginxTarget("172.77.0.2", logger)
 
-async def main():
-    await asyncio.gather(
-        tasks
-    )
-    
-asyncio.run(main())
-        
-# asyncio.gather(tasks)
-        
+loads = (
+    nginx,
+    LoadTarget("172.77.0.3", logger),
+    LoadTarget("172.77.0.10", logger),
+    LoadTarget("172.77.0.11", logger),
+    LoadTarget("172.77.0.12", logger)
+)
 
-# for host in hosts:
-#     target = MonitoringTarget(host, logger)
-#     target.ping()
+for load in loads:
+    load.ping()
+    load.log_load()
 
-# ng = NginxTarget(hosts[2], logger)
-# ng.log_stub()
+loads[0].log_stub()

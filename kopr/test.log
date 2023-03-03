@@ -71,3 +71,47 @@ Thu 2023-03-02 16:01:30: nginx: Nginx is up. status:[ active_conections: 2, acce
 Thu 2023-03-02 16:07:29: load: Loads at 172.77.0.2 are: [ 1m: 1.44, 5m: 1.13, 15m: 1.10]
 Thu 2023-03-02 16:07:29: load: Loads at 172.77.0.2 are: [ 1m: 1.44, 5m: 1.13, 15m: 1.10]
 Thu 2023-03-02 16:07:29: load: Loads at 172.77.0.2 are: [ 1m: 1.44, 5m: 1.13, 15m: 1.10]
+Fri 2023-03-03 12:09:02: ping: Pinged 1.1.1.1, took 7.338 ms
+Fri 2023-03-03 12:09:44: ping: Pinged 1.1.1.1, took 2.223 ms
+Fri 2023-03-03 12:09:54: ping: Pinged 1.1.1.1, took 2.403 ms
+Fri 2023-03-03 12:14:59: ping: Pinged 1.1.1.1, took 2.505 ms
+Fri 2023-03-03 12:15:02: ping: Ping failed, host 10.0.0.1 is unreachable
+Fri 2023-03-03 12:15:02: ping: Pinged 172.77.0.2, took 0.435 ms
+Fri 2023-03-03 12:15:02: ping: Pinged 172.77.0.3, took 1.853 ms
+Fri 2023-03-03 12:15:28: ping: Pinged 1.1.1.1, took 2.388 ms
+Fri 2023-03-03 12:15:31: ping: Ping failed, host 10.0.0.1 is unreachable
+Fri 2023-03-03 12:15:31: ping: Pinged 172.77.0.2, took 0.402 ms
+Fri 2023-03-03 12:15:31: ping: Pinged 172.77.0.3, took 0.541 ms
+Fri 2023-03-03 12:21:19: ping: Pinged 1.1.1.1, took 2.588 ms
+Fri 2023-03-03 12:43:19: load: Loads at 172.77.0.2 are: [ 1m: 0.14, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:43:19: load: Loads at 172.77.0.3 are: [ 1m: 0.14, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:43:19: load: Loads at 172.77.0.10 are: [ 1m: 0.14, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:43:19: load: Loads at 172.77.0.11 are: [ 1m: 0.14, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:43:19: load: Loads at 172.77.0.12 are: [ 1m: 0.14, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:48:58: load: Loads at 172.77.0.2 are: [ 1m: 0.00, 5m: 0.09, 15m: 0.09]
+Fri 2023-03-03 12:48:58: load: Loads at 172.77.0.3 are: [ 1m: 0.00, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:48:58: load: Loads at 172.77.0.10 are: [ 1m: 0.00, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:48:58: load: Loads at 172.77.0.11 are: [ 1m: 0.00, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:48:58: load: Loads at 172.77.0.12 are: [ 1m: 0.00, 5m: 0.08, 15m: 0.09]
+Fri 2023-03-03 12:48:58: nginx: Nginx is up. status:[ active_conections: 2, accepts: 20, handled: 20, requests: 577]
+Fri 2023-03-03 12:50:16: load: Loads at 172.77.0.2 are: [ 1m: 0.00, 5m: 0.06, 15m: 0.08]
+Fri 2023-03-03 12:50:16: load: Loads at 172.77.0.3 are: [ 1m: 0.00, 5m: 0.06, 15m: 0.08]
+Fri 2023-03-03 12:50:16: load: Loads at 172.77.0.10 are: [ 1m: 0.00, 5m: 0.06, 15m: 0.08]
+Fri 2023-03-03 12:50:16: load: Loads at 172.77.0.11 are: [ 1m: 0.00, 5m: 0.06, 15m: 0.08]
+Fri 2023-03-03 12:50:16: load: Loads at 172.77.0.12 are: [ 1m: 0.00, 5m: 0.06, 15m: 0.08]
+Fri 2023-03-03 12:50:16: nginx: Nginx is up. status:[ active_conections: 2, accepts: 21, handled: 21, requests: 594]
+Fri 2023-03-03 12:50:39: ping: Pinged 172.77.0.2, took 0.151 ms
+Fri 2023-03-03 12:50:39: load: Loads at 172.77.0.2 are: [ 1m: 0.06, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:49: ping: Pinged 172.77.0.3, took 0.119 ms
+Fri 2023-03-03 12:50:49: load: Loads at 172.77.0.3 are: [ 1m: 0.05, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:56: ping: Pinged 172.77.0.2, took 0.220 ms
+Fri 2023-03-03 12:50:56: load: Loads at 172.77.0.2 are: [ 1m: 0.05, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:56: ping: Pinged 172.77.0.3, took 0.178 ms
+Fri 2023-03-03 12:50:57: load: Loads at 172.77.0.3 are: [ 1m: 0.05, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:57: ping: Pinged 172.77.0.10, took 0.205 ms
+Fri 2023-03-03 12:50:57: load: Loads at 172.77.0.10 are: [ 1m: 0.05, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:57: ping: Pinged 172.77.0.11, took 0.211 ms
+Fri 2023-03-03 12:50:57: load: Loads at 172.77.0.11 are: [ 1m: 0.05, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:57: ping: Pinged 172.77.0.12, took 0.208 ms
+Fri 2023-03-03 12:50:57: load: Loads at 172.77.0.12 are: [ 1m: 0.05, 5m: 0.07, 15m: 0.08]
+Fri 2023-03-03 12:50:57: nginx: Nginx is up. status:[ active_conections: 2, accepts: 22, handled: 22, requests: 603]
