@@ -20,11 +20,6 @@
         name: prometheus
         state: started
 
-    # - name: 
-    #   file:
-    #     path: "/etc/grafana/provisioning/dashboards/dashboards.yml"
-    #     state: absent
-
   roles:
     - ansible-grafana-install
     - role: ansible-grafana-config

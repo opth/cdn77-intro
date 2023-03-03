@@ -4,7 +4,7 @@ RUN apt update && apt install -y tzdata; \
     apt clean;
 
 RUN mkdir /var/run/sshd; \
-    apt install -y openssh-server iputils-ping python3 curl daemontools wget rsync python3-pip vim; \
+    apt install -y openssh-server iputils-ping python3 daemontools  rsync python3-pip vim; \
     apt clean;
 
 RUN echo "    UsePAM yes" >> /etc/ssh/ssh_config;
