@@ -74,13 +74,15 @@
     - name: Install KOPR requirements
       command: "pip3 install paramiko ping3 requests"
 
+    - name: Change service runfile permissions
+      file:
+        path: "/etc/service/kopr"
+        mode: 755
+        recurse: yes
+        
     - name: Check perm on service directory
       file:
         path: "/etc/service/kopr"
         state: directory
         mode: 1755
     
-    - name: Change service runfile permissions
-      file:
-        path: "/etc/service/kopr/run"
-        mode: 755

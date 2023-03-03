@@ -6,7 +6,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 tasks = set()
 
-logger = Logger("test.log")
+logger = Logger("monitoring.log")
 
 nginx = NginxTarget("172.77.0.2", logger)
 
