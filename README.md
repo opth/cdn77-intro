@@ -19,8 +19,11 @@ Konfiguraci Promethea jsem nikdy dříve nedělal, Grafanu jsem již párkrát k
 Pro instalaci a nastavení celého monitoring kontejneru stačí jediný playbook [monitoring_playbook.yaml](./monitoring_playbook.yaml).
 V něm používám dvě role pro instalaci a konfiguraci Promethea.
 Tento playbook zároveň provádí kopírování konfigurace dashboardů v Grafaně, kopírování a následné spuštění vlastního scriptu KOPR (KOntrolní PRogram, poslední bod seznamu v zadání).
-Tento script je spouštěn pomocí `daemontools`, dle zadání posledního bodu. Loguje stavy do textového souboru.
 Zároveň používám docker kontejner jako exporter pro stub_status z Nginxu pro Prometheus.
+
+
+KOPR je spouštěn pomocí `daemontools`, dle zadání posledního bodu. Loguje stavy do textového souboru.
+Formát logovaných dat je pochopitelný z nahlédnutí do logu, lze i strojově zpracovat.
 
 ### Web :white_square_button:
 Druhý playbook [web_playbook.yaml](./web_playbook.yaml) slouží k instalaci Nginx a jeho konfiguraci na příslušném kontejneru.
@@ -55,5 +58,8 @@ ansible-playbook -i inventory web_playbook.yaml
 
 | Service    | URI | Login _(usr:pass)_ |
 | --- | --- | --- |
-| Prometheus | http://172.77.0.3:9090 | - |
+| Nginx HTTP | http://127.77.0.2 | -
+| Nginx HTTPS | https://172.77.0.2 | -
+| Nginx Proxy | http://172.77.0.2:8080/proxy | -
 | Grafana | http://172.77.0.3:3000 | admin:admin |
+| Prometheus | http://172.77.0.3:9090 | - |
