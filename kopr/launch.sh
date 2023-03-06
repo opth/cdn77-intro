@@ -29,6 +29,6 @@ done
 
 while :
 do
-        python3 /kopr/kopr.py
+        python3 /etc/service/kopr/kopr.py
         sleep 10
 done
