@@ -11,7 +11,7 @@ Docker jsem zvolil hlavně z toho důvodu, že s ním již mám zkušenost.
 Ještě jsem přemýšlel nad Proxem, jelikož jej taky už znám (provozuji svůj vlastní server), ale nepřišel mi na tento úkol jako ideální řešení.
 
 ### Ansible :page_with_curl:
-Jak jsem dříve napsal, pro konfiguraci jsem zvolil Ansible. Nikdy před tímto úkolem jsem se s Ansible nesetkal. Po přečtení [Getting started with Ansible](https://docs.ansible.com/ansible/latest/getting_started/index.html) jsem usoudil, že Ansible chci vyzkoušet. Tohle rozhodnutí mě párkrát potrápilo, ale jsem rád, že jsem do toho šel. Model Code as a Infrastructure jsem rád zkusil.
+Jak jsem psal dříve, pro konfiguraci jsem zvolil Ansible. Před tímto úkolem jsem se s Ansible nikdy nesetkal. Po přečtení [Getting started with Ansible](https://docs.ansible.com/ansible/latest/getting_started/index.html) jsem usoudil, že Ansible chci vyzkoušet. Tohle rozhodnutí mě párkrát potrápilo, ale jsem rád, že jsem do toho šel. Model Code as a Infrastructure jsem rád zkusil.
 
 ### Monitoring :eyes:
 Dle zadání jsem použil Prometheus s Grafanou.
