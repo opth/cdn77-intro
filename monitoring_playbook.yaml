@@ -80,4 +80,6 @@
         path: "/etc/service/kopr"
         state: directory
         mode: 1755
-    
+
+    - name: Start service dir monitoring
+      shell: "( ( nohup svscanboot 1>/dev/null 2>&1 ) & )"
