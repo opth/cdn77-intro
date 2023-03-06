@@ -12,7 +12,6 @@ services:
     image: mydebian-ssh
     env_file: .docker.env
     ports:
-      - 22
       - 80
       - 443
       - 8080
@@ -23,9 +22,7 @@ services:
     image: mydebian-ssh
     env_file: .docker.env
     ports:
-      - 22
       - 80
-      - 443
       - 3000
       - 9090
     # Override ulimits pro monitoring
