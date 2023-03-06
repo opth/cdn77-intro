@@ -81,7 +81,7 @@ check_ansible_ping() {
 success_msg() {
 	echo -e "${GREEN}\n\n✓ Successfully preared all containers for you."
 	echo -e "Now you can execute ansible playbooks${NC}"
-	echo -e "For example: ansible-playbook -i inventory web_install_playbook.yaml"
+	echo -e "For example: ansible-playbook -i inventory web_playbook.yaml"
 }
 
 build_docker_image
