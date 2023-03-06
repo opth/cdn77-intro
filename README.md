@@ -4,7 +4,7 @@
 Celá infrastruktura je postavená na Docker kontejnerech.
 Pro kontejnery jsem použil vlastní image, postavený na debianu (dle zadání).
 Vlastní image používám kvůli množství vlastních požadavků, třeba předinstalované ssh, nebo python pro Ansible.
-Nenašel jsem vyhovující hotový kontejner na [docker hubu](https://hub.docker.com/).
+Na docker hubu jsem nenašel vyhovující hotový kontejner.
 Při tvorbě vlasniho Dockerfile jsem se ale jinými inspiroval.
 
 Docker jsem zvolil hlavně z toho důvodu, že s ním již mám zkušenost.
