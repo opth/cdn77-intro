@@ -29,10 +29,18 @@ check_projet_dir() {
 
 register_known_hosts() {
 	check_projet_dir
+
+	mkdir -p ~/.ssh
+	touch ~/.ssh/known_hosts
+
 	echo "========== Importing ssh pubkey fingerprints =========="
 	if [ ! -w "$KNOWN_HOSTS" ]; then
 		exit_msg "$KNOWN_HOSTS does not exist or is unwritable." 1
 	fi
+
+	chmod 700 .ssh
+	chmod 600 .ssh/ansible
+	chmod 644 .ssh/ansible
 
 	for host in "${IPS[@]}"; do
 		if ! ping -c 1 -W 0.5 $host 1>/dev/null; then
