@@ -84,8 +84,8 @@ success_msg() {
 }
 
 checks() {
-	if ! command -v lsb_release >/dev/null || lsb_release -a =~ "bullseye"; then
-		echo -e "This script was validated on Debian 11 (Bullseye).\nIt might run unpredictably on your system. \nContinue? (y/n)"
+	if ! ( command -v lsb_release 2>/dev/null ) >/dev/null || ! [[ $(lsb_release -c 2>/dev/null) =~ "bullseye" ]]; then
+		echo -e "This script was tested on Debian 11 (Bullseye).\nIt might run unpredictably on your system. \nContinue? (y/n)"
 		read -p "" -n 1 -r
 		echo
 		if [[ ! $REPLY =~ ^[Yy]$ ]]; then
