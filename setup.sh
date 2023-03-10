@@ -4,14 +4,15 @@ GREEN='\033[1;32m'
 NC='\033[0m' # No Color
 
 IPS=(
-	"172.77.0.2"	# web
-	"172.77.0.3"	# monitoring
-	"172.77.0.10"	# etcd00
-	"172.77.0.11"	# etcd01
-	"172.77.0.12"	# etcd02
+	"172.77.0.2"  # web
+	"172.77.0.3"  # monitoring
+	"172.77.0.10" # etcd00
+	"172.77.0.11" # etcd01
+	"172.77.0.12" # etcd02
 )
 
 KNOWN_HOSTS="$HOME/.ssh/known_hosts"
+PYTHON_EXECUTABLE="/usr/bin/python3"
 
 exit_msg() {
 	echo -e "${RED}====== ERROR ======"
@@ -21,8 +22,7 @@ exit_msg() {
 }
 
 check_projet_dir() {
-	if [[ ! "$PWD" =~ "cdn77-intro" ]]
-	then
+	if [[ ! "$PWD" =~ "cdn77-intro" ]]; then
 		exit_msg "Current directory is not projet root: 'cd77-intro'." 1
 	fi
 }
@@ -30,15 +30,12 @@ check_projet_dir() {
 register_known_hosts() {
 	check_projet_dir
 	echo "========== Importing ssh pubkey fingerprints =========="
-	if [ ! -w "$KNOWN_HOSTS" ]
-	then
+	if [ ! -w "$KNOWN_HOSTS" ]; then
 		exit_msg "$KNOWN_HOSTS does not exist or is unwritable." 1
 	fi
 
-	for host in "${IPS[@]}"
-	do
-		if ! ping -c 1 -W 0.5 $host 1>/dev/null
-		then
+	for host in "${IPS[@]}"; do
+		if ! ping -c 1 -W 0.5 $host 1>/dev/null; then
 			echo -e "${RED}X: $host is unreachable.${NC}" 1>&2
 			echo
 			continue
@@ -46,7 +43,7 @@ register_known_hosts() {
 
 		sed -i '/${host}/d' ~/.ssh/known_hosts
 
-		ssh-keyscan $host 2>/dev/null >> "$KNOWN_HOSTS"
+		ssh-keyscan $host 2>/dev/null >>"$KNOWN_HOSTS"
 
 		echo -e "${GREEN}✓ Imported $host${NC}"
 		echo
@@ -55,12 +52,8 @@ register_known_hosts() {
 }
 
 build_docker_image() {
-	if [[ ! -f /var/run/docker.pid ]]
-	then
-		exit_msg "Docker is not running." 1
-	fi
 
- 	check_projet_dir
+	check_projet_dir
 
 	echo "========== Building docker image =========="
 	docker image rm -f mydebian-ssh:latest 2>/dev/null
@@ -73,14 +66,30 @@ build_docker_image() {
 
 check_ansible_ping() {
 	check_projet_dir
-	( ansible all -i inventory -m ping ) || exit_msg "Could not reach all containers from ansible." 1
+	(ansible all -i inventory -m ping) || exit_msg "Could not reach all containers from ansible." 1
 }
 
 success_msg() {
 	echo -e "${GREEN}\n\n✓ Successfully preared all containers for you."
 	echo -e "Now you can execute ansible playbooks${NC}"
-	echo -e "For example: ansible-playbook -i inventory web_playbook.yaml"
+	echo -e "For example: ansible-playbook web_playbook.yaml"
 }
+
+check_python_and_docker() {
+	if [[ ! -x "$PYTHON_EXECUTABLE" ]]; then
+		exit_msg "Python3 not found at ${PYTHON_EXECUTABLE}" 1
+	fi
+
+	if [[ ! -f /var/run/docker.pid ]]; then
+		exit_msg "Docker is not running." 1
+	fi
+
+	if (! docker version ); then
+		exit_msg "Cannot access docker engine." 1
+	fi
+}
+
+check_python_and_docker
 
 build_docker_image
 
