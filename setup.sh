@@ -40,7 +40,7 @@ register_known_hosts() {
 
 	chmod 700 .ssh
 	chmod 600 .ssh/ansible
-	chmod 644 .ssh/ansible
+	chmod 644 .ssh/ansible.pub
 
 	for host in "${IPS[@]}"; do
 		if ! ping -c 1 -W 0.5 $host 1>/dev/null; then
