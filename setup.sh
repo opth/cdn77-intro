@@ -83,11 +83,21 @@ success_msg() {
 	echo -e "For example: ansible-playbook web_playbook.yaml"
 }
 
-check_python_and_docker() {
+checks() {
+	if ! command -v lsb_release >/dev/null || lsb_release -a =~ "bullseye"; then
+		echo -e "This script was validated on Debian 11 (Bullseye).\nIt might run unpredictably on your system. \nContinue? (y/n)"
+		read -p "" -n 1 -r
+		echo
+		if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+			exit 1
+		fi
+
+	fi
+
 	if ! command -v ansible >/dev/null; then
 		exit_msg "Ansible not found." 1
 	fi
-	
+
 	if [[ ! -x "$PYTHON_EXECUTABLE" ]]; then
 		exit_msg "Python3 not found at ${PYTHON_EXECUTABLE}" 1
 	fi
@@ -96,7 +106,7 @@ check_python_and_docker() {
 		exit_msg "Docker is not running." 1
 	fi
 
-	if (! docker version ); then
+	if (! docker version); then
 		exit_msg "Cannot access docker engine." 1
 	fi
 
@@ -105,7 +115,7 @@ check_python_and_docker() {
 	fi
 }
 
-check_python_and_docker
+checks
 
 build_docker_image
 
