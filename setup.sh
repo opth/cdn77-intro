@@ -61,7 +61,7 @@ build_docker_image() {
 	docker build -t mydebian-ssh ./docker
 
 	echo "========== Preparing docker containers =========="
-	docker-compose --project-directory ./docker/ up -d --timestamps
+	docker-compose -f docker/docker-compose.yaml up -d
 }
 
 check_ansible_ping() {
