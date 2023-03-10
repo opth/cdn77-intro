@@ -84,6 +84,10 @@ success_msg() {
 }
 
 check_python_and_docker() {
+	if ! command -v ansible >/dev/null; then
+		exit_msg "Ansible not found." 1
+	fi
+	
 	if [[ ! -x "$PYTHON_EXECUTABLE" ]]; then
 		exit_msg "Python3 not found at ${PYTHON_EXECUTABLE}" 1
 	fi
