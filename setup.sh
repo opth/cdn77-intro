@@ -87,6 +87,10 @@ check_python_and_docker() {
 	if (! docker version ); then
 		exit_msg "Cannot access docker engine." 1
 	fi
+
+	if ! command -v docker-compose >/dev/null; then
+		exit_msg "docker-compose is not accessible." 1
+	fi
 }
 
 check_python_and_docker
